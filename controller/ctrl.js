@@ -2,7 +2,6 @@
 
 const model = require("../model/user");
 const bkfd2Password = require('../middlewares/pbk');
-const pbkdf2Password = require("pbkdf2-password");
 
 const output = {
     main: (req, res) => {
@@ -37,19 +36,16 @@ const process = {
                 "id": req.body.id,
                 "pw": req.body.pw
             }
-
+            
+            // console.log(result[0].id);
+            // req.session.is_login = true;
+            // req.session.user = result[0].id;
             const result = await model.login_data(parameter);
-            console.log(result[0].id);
-            req.session.is_login = true;
-            req.session.user = result[0].id;
-
             const hash = result[0].pw;
             const salt = result[0].salt;
             console.log(salt);
-            //console.log(salt);
             const pbk = await bkfd2Password.decryption(parameter.pw, salt, hash);
-            //console.log(pbk);
-
+            console.log(pbk);
 
             res.render("main",{output:result[0],user:result[0], is_login:true});
         } catch (err) {
