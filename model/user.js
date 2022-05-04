@@ -20,7 +20,7 @@ const signup_data = (parameter) => {
 
 const login_data = (parameter) => {
     return new Promise((resolve, rejects) => {
-        db.query('SELECT pw, salt FROM member where id = ?', [parameter.id, parameter.pw, parameter.salt], (err, db_data) => {
+        db.query('SELECT pw, salt FROM member where id = ?', [parameter.id], (err, db_data) => {
             if(db_data){
                 resolve(db_data);
             }
