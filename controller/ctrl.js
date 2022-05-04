@@ -36,7 +36,6 @@ const process = {
                 "id": req.body.id,
                 "pw": req.body.pw
             }
-            
             // console.log(result[0].id);
             // req.session.is_login = true;
             // req.session.user = result[0].id;
@@ -46,12 +45,15 @@ const process = {
             console.log(salt);
             const pbk = await bkfd2Password.decryption(parameter.pw, salt, hash);
             console.log(pbk);
-
-            res.render("main",{output:result[0],user:result[0], is_login:true});
+            // req.session.save(function() {
+            //     res.render("main",{
+            //         output:result[0],
+            //         user:result[0], 
+            //         is_login:true});
+            // })
         } catch (err) {
             console.log("로그인 실패");
             res.render("login");
-            throw err;
         }
     },
     signup: async (req, res) => {
