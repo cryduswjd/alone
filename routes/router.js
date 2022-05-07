@@ -17,5 +17,6 @@ router.post("/login", ctrl.process.login);
 router.post("/signup", ctrl.process.signup);
 router.post("/find_id", ctrl.process.find_id);
 router.post("/find_pw", ctrl.process.find_pw);
+router.post("/change_pw", ctrl.process.change_pw);
 
 module.exports = router;
