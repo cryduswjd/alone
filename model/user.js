@@ -8,7 +8,7 @@ const signup_data = (parameter) => {
             console.log(db_data)
             if (db_data.length == 0) {
                 console.log(db_data)
-                db.query('INSERT INTO member(name, id, pw, salt) values(?,?,?,?)', [parameter.name, parameter.id, parameter.pw, parameter.salt]);
+                db.query('INSERT INTO member(name, email, id, pw, salt) values(?,?,?,?,?)', [parameter.name, parameter.email, parameter.id, parameter.pw, parameter.salt]);
                 resolve(db_data);
             }
             else {
@@ -31,7 +31,21 @@ const login_data = (parameter) => {
     })
 }
 
+const find_id = (parameter) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT id FROM member where email = ?', [parameter.email], (err, db_data) => {
+            if(db_data) {
+                resolve(db_data);
+            }
+            else {
+                reject(err);
+            }
+        })
+    })
+}
+
 module.exports = {
     signup_data,
     login_data,
+    find_id
 }
